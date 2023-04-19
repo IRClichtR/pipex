@@ -14,20 +14,14 @@
 
 int	main(int ac, char **av, char **envp)
 {
-	char	**args;
+	int	success;
 
 	if (ac > 4)
 	{
-		args = super_strdup(args, ac - 1);
-		if (args == 0)
-		{
-			ft_putstr_fd(2, "Error: Args String Alloc failed\n");
-			return (1);
-		}
-		success = pipex(args, envp);
+		success = pipex(av, ac, envp);
 		if (success == -1)
 		{
-			free_whatever(args);
+			ft_putstr_fd("Error: Pipex failed\n", 2);
 			return (1);
 		}
 	}

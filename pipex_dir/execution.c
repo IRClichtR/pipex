@@ -12,7 +12,7 @@
 
 #include "pipex.h"
 
-void	execution(char *cmd, char **envp)
+void	execution(char *cmd, char **envp, t_list *garbage)
 {
 	char	**path;
 	char	**args;
@@ -20,6 +20,8 @@ void	execution(char *cmd, char **envp)
 
 	path = split_path(envp);
 	args = ft_split(cmd, ' ');
+	dump_add(path, garbage);
+	dump_add(args, garbage);
 	while (*path != NULL)
 	{
 		exec = execve(*path, args, envp);

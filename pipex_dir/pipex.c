@@ -14,20 +14,24 @@
 
 int	pipex(char **args, int ac, char **envp)
 {
-	int	infile;
-	int	outfile;
-	int	i;
+	int		infile;
+	int		outfile;
+	int		i;
+	t_list	*garbage;
 
+	garbage = ft_calloc(1, sizeof(t_list));
+	if (garbage == NULL)
+		return (-1);
 	infile = open_file(args[1], 0);
 	outfile = open_file(args[get_len(args) - 1], 1);
 	if (infile == -1 || outfile == -1)
 		return (-1);
-	dup2(infile, STDIN);
-	dup2(outfile, STDOUT);
-	redirection(infile, args[2], envp);
+	dup2(infile, STDIN_FILENO);
+	dup2(outfile, STDOUT_FILENO);
+	redirection(infile, args[2], envp, garbage);
 	i = 0;
 	while (++i < ac - 2)
-		redirection(1, args[i], envp);
-	execution(av[2], envp);
+		redirection(1, args[i], envp, garbage);
+	execution(args[2], envp, garbage);
 	return (-1);
 }

@@ -11,12 +11,12 @@
 /* ************************************************************************** */
 
 #ifndef LIBTOOLS_H
-# define LIBTOIOLS_H
+# define LIBTOOLS_H
 
 # include "../ft_printf/ft_printf.h"
 # include "../libft/libft.h"
 
-void    dump_add(void *content, t_list **garbage);
+void    dump_add(void *content, t_list *garbage);
 void    dump_del(t_list *garbage);
 char	**super_strdup(char **av, int ac);
 int		get_len(char **str);

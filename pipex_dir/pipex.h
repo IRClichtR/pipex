@@ -14,19 +14,19 @@
 # define PIPEX_H
 
 # include "../libft/libft.h"
-# include "../GNL/get_next_line.h"
+# include "../libtools/libtools.h"
 # include "../ft_printf/ft_printf.h"
 # include <sys/types.h>
 # include <sys/wait.h>
-//# include <process.h>
 # include <fcntl.h>
 # include <errno.h>
 # include <string.h>
 # include <errno.h>
 
-void	do_child(int file, char *cmd1);
-void	do_parent(int file, char *cmd2);
-int		is_cmd(char *cmd1, char *cmd2);
-void	pipex(int *files, char *cmd1, char *cmd2);
-int		set_args(int ac, char **argv, char **envt);
+char	*copy_path(char **envp);
+void	execution(char *cmd, char **envp, t_list *garbage);
+int		open_file(char *filename, int mode);
+int		pipex(char **args, int ac, char **envp);
+void	redirection(int infile, char *cmd, char **envp, t_list *garbage);
+char	**split_path(char **envp);
 #endif

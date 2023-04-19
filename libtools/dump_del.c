@@ -14,12 +14,12 @@
 
 void	dump_del(t_list *garbage)
 {
-	if (head == NULL)
+	if (garbage == NULL)
 		return ;
 	else
 	{
 		dump_del(garbage->next);
-		free(garbage->ptr);
+		free(garbage->content);
 		free(garbage);
 	}
 }

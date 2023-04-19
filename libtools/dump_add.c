@@ -12,7 +12,7 @@
 
 #include "libtools.h"
 
-void	dump_add(void *content, t_list **garbage)
+void	dump_add(void *content, t_list *garbage)
 {
 	t_list	*new;
 

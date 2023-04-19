@@ -12,37 +12,34 @@
 
 #include "pipex.h"
 
-static void	do_parent(int id, int *pipe_fd)
+static void	do_parent(int id, int *fd, t_list *garbage)
 {
-	close(pipe_fd[1]);
-	dup2(pipe_fd[0], STDIN);
-	wait_pid(id, NULL, 0);
+	close(fd[1]);
+	dup2(fd[0], STDIN_FILENO);
+	waitpid(id, NULL, 0);
+	dump_del(garbage);
 }
 
-static void	do_child(int id, int *pipe_fd, int infile, char *cmd)
-{
-}
-
-void	redirection(int infile, char *cmd, char **envp)
+void	redirection(int infile, char *cmd, char **envp, t_list *garbage)
 {
 	pid_t	id;
-	int		*pipe_fd[2];
-	char	**path;
-	char	**args
+	int		fd[2];
 
-	if (pipe(pipe_fd) == 0)
+	if (pipe(fd) == -1)
 	{
-		id = fork();
-		if (id == 0)
-		{
-			close(pipe_fd[0]);
-			dup2(pipe_fd[1], STDOUT);
-			if (infile == STDIN)
-				exit(1);
-			else
-				execution(cmd, envp);
-		}
-		else
-			do_parent(id, pipe_fd);
+		ft_putstr_fd("ERROR pipe failed\n", 2);
+		return ;
 	}
+	id = fork();
+	if (id == 0)
+	{
+		close(fd[0]);
+		dup2(fd[1], STDOUT_FILENO);
+		if (infile == STDIN_FILENO)
+			exit(1);
+		else
+			execution(cmd, envp, garbage);
+	}
+	else
+		do_parent(id, fd, garbage);
 }

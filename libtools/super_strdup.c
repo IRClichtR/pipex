@@ -15,22 +15,26 @@
 char	**super_strdup(char **av, int ac)
 {
 	char	**arg;
+	t_list	*garbage;
 	int		i;
 
 	arg = ft_calloc(ac, sizeof(char *));
-	if (!arg)
+	garbage = ft_calloc(1, sizeof(t_list));
+	if (!arg || !garbage)
 		return (NULL);
 	i = 0;
+	dump_add(arg, garbage);
 	while (av[i] != 0)
 	{
 		arg[i] = ft_strdup(av[i]);
-		if (av[i] = NULL)
+		if (av[i] == NULL)
 		{
-			free_whatever("s", av);
+			dump_del(garbage);
 			return (NULL);
 		}
+		dump_add(arg[i], garbage);
 		i++;
 	}
-	arg[i] = '\0';
+	arg[i] = 0;
 	return (arg);
 }

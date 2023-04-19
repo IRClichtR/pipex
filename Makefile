@@ -14,13 +14,14 @@ ft_isascii.c      ft_lstlast.c      ft_putchar_fd.c   ft_strlcat.c      ft_tolow
 ft_isdigit.c      ft_lstmap.c       ft_putendl_fd.c   ft_strlcpy.c      ft_toupper.c \
 ft_isprint.c      ft_lstnew.c       ft_putnbr_fd.c    ft_strlen.c)
 
-GNL_SRC		= GNL/get_next_line.c
+LIBTL_SRC	= $(addprefix libtools/, \
+dump_add.c     dump_del.c     get_len.c      super_strdup.c)
 
-PARSING_SRC	= $(addprefix parsing/, )
+PIPEX_SRC	= $(addprefix pipex_dir/, \
+copy_path.c   main.c        pipex.c       redirection.c \
+execution.c   open_file.c   split_path.c)
 
-PIPEX_SRC	= $(addprefix pipex_dir/, main.c pipex.c)
-
-SRCS		= $(GNL_SRC) $(PRINTF_SRC) $(LIBFT_SRC) $(PARSING_SRC) $(PIPEX_SRC)
+SRCS		= $(GNL_SRC) $(PRINTF_SRC) $(LIBFT_SRC) $(LIBTL_SRC) $(PIPEX_SRC)
 
 OBJS_DIR	= OBJS
 OBJS		= $(addprefix $(OBJS_DIR)/, $(patsubst %.c, %.o, $(notdir $(SRCS))))
@@ -32,8 +33,6 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) -o $@ $(OBJS)
-	echo "je suis le infile dans lequel tu vas lire pour executer la premiere commande ;-)" > infile
-	touch outfile
 
 $(OBJS_DIR)/%.o: */%.c
 	mkdir -p $(OBJS_DIR)
@@ -42,8 +41,6 @@ $(OBJS_DIR)/%.o: */%.c
 re: fclean all
 clean: 
 	rm -rf $(OBJS_DIR)
-	rm -f infile
-	rm -f outfile
 fclean: clean
 	rm -f $(NAME)
 .PHONY: all clean fclean re
