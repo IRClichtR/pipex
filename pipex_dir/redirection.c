@@ -6,7 +6,7 @@
 /*   By: ftuernal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 18:33:30 by ftuernal          #+#    #+#             */
-/*   Updated: 2023/04/13 12:19:28 by ftuernal         ###   ########.fr       */
+/*   Updated: 2023/04/24 11:04:41 by ftuernal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@ void	redirection(int infile, char *cmd, char **envp, t_list *garbage)
 		return ;
 	}
 	id = fork();
+	if (id < 0){
+		dprintf(2, "id is < 0!\n");
+	}
 	if (id == 0)
 	{
 		close(fd[0]);
