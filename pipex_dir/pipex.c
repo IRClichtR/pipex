@@ -6,7 +6,7 @@
 /*   By: ftuernal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:05:48 by ftuernal          #+#    #+#             */
-/*   Updated: 2023/04/24 11:03:44 by ftuernal         ###   ########.fr       */
+/*   Updated: 2023/04/24 17:33:31 by ftuernal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,6 @@ int	pipex(char **args, int ac, char **envp)
 	i = 0;
 	while (++i < ac - 2)
 		redirection(1, args[i], envp, garbage);
-	execution(args[2], envp, garbage);
+	execution(args, args[2], envp, garbage);
 	return (-1);
 }

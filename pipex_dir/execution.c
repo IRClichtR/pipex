@@ -6,7 +6,7 @@
 /*   By: ftuernal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 12:11:02 by ftuernal          #+#    #+#             */
-/*   Updated: 2023/04/24 14:43:20 by ftuernal         ###   ########.fr       */
+/*   Updated: 2023/04/24 17:33:39 by ftuernal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	garbage_stradd(t_list *garbage, char **str)
 	dump_add(str[i], garbage);
 }
 
-void	execution(char *cmd, char **envp, t_list *garbage)
+void	execution(char **av, char *cmd, char **envp, t_list *garbage)
 {
 	char	**path;
 	char	**args;
@@ -45,7 +45,7 @@ while (path[i] != 0)
 	garbage_stradd(garbage, args);
 	while (*path != NULL)
 	{
-		exec = execve(*path, args, envp);
+		exec = execve(*path, cmd, envp);
 		path++;
 	}
 	if (exec == -1)

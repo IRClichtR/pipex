@@ -6,7 +6,7 @@
 /*   By: ftuernal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:08:40 by ftuernal          #+#    #+#             */
-/*   Updated: 2023/04/04 16:42:31 by ftuernal         ###   ########.fr       */
+/*   Updated: 2023/04/24 17:31:05 by ftuernal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,6 @@ void	execution(char *cmd, char **envp, t_list *garbage);
 int		open_file(char *filename, int mode);
 int		pipex(char **args, int ac, char **envp);
 void	redirection(int infile, char *cmd, char **envp, t_list *garbage);
+char    **split_cmd(char **av, char *cmd);
 char	**split_path(char **envp);
 #endif

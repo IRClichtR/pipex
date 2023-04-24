@@ -19,7 +19,7 @@ dump_add.c     dump_del.c     get_len.c      super_strdup.c)
 
 PIPEX_SRC	= $(addprefix pipex_dir/, \
 copy_path.c   main.c        pipex.c       redirection.c \
-execution.c   open_file.c   split_path.c)
+execution.c   open_file.c   split_path.c  split_cmd.c)
 
 SRCS		= $(GNL_SRC) $(PRINTF_SRC) $(LIBFT_SRC) $(LIBTL_SRC) $(PIPEX_SRC)
 
