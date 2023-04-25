@@ -18,10 +18,10 @@ LIBTL_SRC	= $(addprefix libtools/, \
 dump_add.c     dump_del.c     get_len.c      super_strdup.c)
 
 PIPEX_SRC	= $(addprefix pipex_dir/, \
-copy_path.c   main.c        pipex.c       redirection.c \
-execution.c   open_file.c   split_path.c  split_cmd.c)
+complete_paths_syntax.c  do_parent.c  find_path.c  open_file.c  search_path.c \
+do_child.c               execute.c    main.c)
 
-SRCS		= $(GNL_SRC) $(PRINTF_SRC) $(LIBFT_SRC) $(LIBTL_SRC) $(PIPEX_SRC)
+SRCS		= $(PRINTF_SRC) $(LIBFT_SRC) $(LIBTL_SRC) $(PIPEX_SRC)
 
 OBJS_DIR	= OBJS
 OBJS		= $(addprefix $(OBJS_DIR)/, $(patsubst %.c, %.o, $(notdir $(SRCS))))

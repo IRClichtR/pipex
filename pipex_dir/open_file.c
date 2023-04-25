@@ -5,46 +5,29 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ftuernal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/11 17:56:27 by ftuernal          #+#    #+#             */
-/*   Updated: 2023/04/12 13:58:52 by ftuernal         ###   ########.fr       */
+/*   Created: 2023/04/25 16:34:28 by ftuernal          #+#    #+#             */
+/*   Updated: 2023/04/25 17:50:02 by ftuernal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static void	print_accerror(char *filename)
+int	open_file(char *filename, int std)
 {
-	ft_putstr_fd(filename, 2);
-	ft_putstr_fd(" : ERROR! no file or dir with that name\n", 2);	
-}
+	int	file;
 
-static void	print_openerror(char *filename)
-{
-	ft_putstr_fd(filename, 2);
-	ft_putstr_fd(" : ERROR! Fail in opening the file\n", 2);	
-}
-
-int	open_file(char *filename, int mode)
-{
-	int	acc;
-	int	open_fd;
-
-	if (mode == 0)
+	file = 0;
+	if (std == 0)
+		file = open(filename, O_WRONLY | O_CREAT | O_APPEND | O_CLOEXEC, 0777);
+	else if (std == 1)
+		file = open(filename, O_WRONLY | O_CREAT | O_TRUNC | O_CLOEXEC, 0777);
+	else if (std == 2)
+		file = open(filename, O_RDONLY | O_CLOEXEC, 0777);
+	if (file == -1)
 	{
-		acc = access(filename, F_OK);
-		if (acc == -1)
-		{
-			print_accerror(filename);
-			return (-1);
-		}
-		open_fd = open(filename, O_RDONLY);
+		ft_putstr_fd(filename, 2);
+		perror(" Error: Impossible to open file\n");
+		exit(EXIT_FAILURE);
 	}
-	else
-		open_fd = open(filename, O_WRONLY);
-	if (open_fd == -1)
-	{	
-		print_openerror(filename);
-		return (-1);
-	}
-	return (open_fd);
+	return (file);
 }

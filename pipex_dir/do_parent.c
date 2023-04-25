@@ -1,36 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   do_parent.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ftuernal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/25 14:18:56 by ftuernal          #+#    #+#             */
-/*   Updated: 2023/04/25 17:40:09 by ftuernal         ###   ########.fr       */
+/*   Created: 2023/04/25 14:29:44 by ftuernal          #+#    #+#             */
+/*   Updated: 2023/04/25 17:25:05 by ftuernal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	main(int ac, char **av, char **envp)
+void	do_parent(char **argv, char **envp, int *fd)
 {
-	int	fd[2];
-	int	pid;
+	int	outfile;
 
-	if (ac == 5)
-	{
-		if (pipe(fd) == -1)
-			perror("Error: pipe failure!\n");
-		pid = fork();
-		if (pid == 0)
-			do_child(av, envp, fd);
-		waitpid(pid, NULL, 0);
-		do_parent(av, envp, fd);
-	}
-	else
-	{
-		ft_putstr_fd("Error: Invalid arguments number!\n", 2);
-		ft_putstr_fd("Enter 4 valid arguments <INF> <CMD1> <CMD2> <OUT>", 2);
-	}
-	return (0);
+	outfile = open_file(argv[4], 1);
+	dup2(fd[0], STDIN_FILENO);
+	close(fd[0]);
+	dup2(outfile, STDOUT_FILENO);
+	close(fd[1]);
+	close(outfile);
+	execute(argv[3], envp);
 }

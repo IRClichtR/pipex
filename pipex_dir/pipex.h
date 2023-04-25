@@ -6,7 +6,7 @@
 /*   By: ftuernal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:08:40 by ftuernal          #+#    #+#             */
-/*   Updated: 2023/04/24 17:31:05 by ftuernal         ###   ########.fr       */
+/*   Updated: 2023/04/25 17:20:36 by ftuernal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@
 # include <string.h>
 # include <errno.h>
 
-char	*copy_path(char **envp);
-void	execution(char *cmd, char **envp, t_list *garbage);
-int		open_file(char *filename, int mode);
-int		pipex(char **args, int ac, char **envp);
-void	redirection(int infile, char *cmd, char **envp, t_list *garbage);
-char    **split_cmd(char **av, char *cmd);
-char	**split_path(char **envp);
+char	**complete_paths_syntax(char **envp);
+void	do_child(char **argv, char **envp, int *fd);
+void	do_parent(char **argv, char **envp, int *fd);
+void	execute(char *arg, char **envp);
+char	*find_path(char *cmd, char **envp);
+int		open_file(char *filename, int std);
+char	**search_paths(char **envp);
 #endif

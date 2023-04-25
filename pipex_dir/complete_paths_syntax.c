@@ -1,33 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   copy_path.c                                        :+:      :+:    :+:   */
+/*   complete_paths_syntax.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ftuernal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/13 11:33:33 by ftuernal          #+#    #+#             */
-/*   Updated: 2023/04/13 11:34:20 by ftuernal         ###   ########.fr       */
+/*   Created: 2023/04/25 15:16:54 by ftuernal          #+#    #+#             */
+/*   Updated: 2023/04/25 17:24:36 by ftuernal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-char	*copy_path(char **envp)
+char	**complete_paths_syntax(char **envp)
 {
+	char 	**comp_path;
+	char 	**partial_path;
 	int		i;
-	char	*path_copy;
 
 	i = 0;
-	while (envp[i] != 0)
+	partial_path = search_paths(envp);
+	comp_path = ft_calloc(get_len(partial_path) + 1, sizeof(char *));
+	while (partial_path[i] != 0)
 	{
-		if (ft_strncmp(envp[i], "PATH=", 5) == 0)
-		{
-			path_copy = ft_strdup(envp[i] + 5);
-			if (!path_copy)
-				return (NULL);
-			return (path_copy);
-		}
+		comp_path[i] = ft_strjoin(partial_path[i], "/");
+		free(partial_path[i]);
+		partial_path[i] = 0;
 		i++;
 	}
-	return (NULL);
+	free(partial_path[i]);
+	free(partial_path);
+	comp_path[i] = 0;
+	return (comp_path);
 }
