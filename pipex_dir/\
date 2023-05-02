@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   search_path.c                                      :+:      :+:    :+:   */
+/*   create_path.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ftuernal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/25 15:04:06 by ftuernal          #+#    #+#             */
-/*   Updated: 2023/04/25 17:17:11 by ftuernal         ###   ########.fr       */
+/*   Created: 2023/05/02 14:52:44 by ftuernal          #+#    #+#             */
+/*   Updated: 2023/05/02 16:14:25 by ftuernal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-char	**search_paths(char **envp)
+char	**create_path(char **envp)
 {
-	int		i;
-	char	**partial_paths;
+	char	*strdup_path;
+	char	**split_path;
+	char	**comp_path;
 
-	i = 0;
-	while (ft_strncmp(envp[i], "PATH", 4) != 0)
-		i++;
-	partial_paths = ft_split(envp[i] + 5, ':');
-	return (partial_paths);
+	strdup_path = copy_path(envp);
+	split_path = ft_split(strdup_path, ':');
+	free(copy_path);
+	comp_path = loop_joinf(split_path, "/");
+	return (comp_path);
 }

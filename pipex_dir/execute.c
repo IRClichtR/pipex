@@ -6,7 +6,7 @@
 /*   By: ftuernal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 14:31:08 by ftuernal          #+#    #+#             */
-/*   Updated: 2023/04/25 17:37:53 by ftuernal         ###   ########.fr       */
+/*   Updated: 2023/05/02 18:59:41 by ftuernal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,11 @@ void	execute(char *arg, char **envp)
 {
 	char	**cmd;
 	int		exec;
+	char	*path;
 
 	cmd = ft_split(arg, ' ');
-	exec = execve(find_path(cmd[0], envp), cmd, envp);
+	path = find_path(cmd[0], envp);
+	exec = execve(path, cmd, envp);
 	if (exec == -1)
 	{
 		free_all_str(cmd);

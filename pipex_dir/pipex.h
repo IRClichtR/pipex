@@ -6,7 +6,7 @@
 /*   By: ftuernal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 16:08:40 by ftuernal          #+#    #+#             */
-/*   Updated: 2023/04/25 17:20:36 by ftuernal         ###   ########.fr       */
+/*   Updated: 2023/05/02 15:46:18 by ftuernal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,12 @@
 # include <string.h>
 # include <errno.h>
 
-char	**complete_paths_syntax(char **envp);
+char	*copy_path(char **envp);
+char	**create_path(char **envp);
 void	do_child(char **argv, char **envp, int *fd);
 void	do_parent(char **argv, char **envp, int *fd);
 void	execute(char *arg, char **envp);
 char	*find_path(char *cmd, char **envp);
+char    **loop_joinf(char **split_path, char *charset);
 int		open_file(char *filename, int std);
-char	**search_paths(char **envp);
 #endif

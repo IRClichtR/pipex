@@ -1,35 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   complete_paths_syntax.c                            :+:      :+:    :+:   */
+/*   create_path.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ftuernal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/25 15:16:54 by ftuernal          #+#    #+#             */
-/*   Updated: 2023/04/25 17:24:36 by ftuernal         ###   ########.fr       */
+/*   Created: 2023/05/02 14:52:44 by ftuernal          #+#    #+#             */
+/*   Updated: 2023/05/02 18:57:49 by ftuernal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-char	**complete_paths_syntax(char **envp)
+char	**create_path(char **envp)
 {
-	char 	**comp_path;
-	char 	**partial_path;
-	int		i;
+	char	*strdup_path;
+	char	**split_path;
+	char	**comp_path;
 
-	i = 0;
-	partial_path = search_paths(envp);
-	comp_path = ft_calloc(get_len(partial_path) + 1, sizeof(char *));
-	while (partial_path[i] != 0)
-	{
-		comp_path[i] = ft_strjoin(partial_path[i], "/");
-		free(partial_path[i]);
-		partial_path[i] = 0;
-		i++;
-	}
-	free(partial_path[i]);
-	free(partial_path);
-	comp_path[i] = 0;
+	strdup_path = copy_path(envp);
+	split_path = ft_split(strdup_path, ':');
+	//free(copy_path);
+	comp_path = loop_joinf(split_path, "/");
 	return (comp_path);
 }

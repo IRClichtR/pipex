@@ -18,8 +18,8 @@ LIBTL_SRC	= $(addprefix libtools/, \
 dump_add.c     dump_del.c     get_len.c      super_strdup.c)
 
 PIPEX_SRC	= $(addprefix pipex_dir/, \
-complete_paths_syntax.c  do_parent.c  find_path.c  open_file.c  search_path.c \
-do_child.c               execute.c    main.c)
+copy_path.c    do_child.c   execute.c    loop_joinf.c  open_file.c \
+create_path.c  do_parent.c  find_path.c  main.c)
 
 SRCS		= $(PRINTF_SRC) $(LIBFT_SRC) $(LIBTL_SRC) $(PIPEX_SRC)
 
