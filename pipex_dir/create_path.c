@@ -6,7 +6,7 @@
 /*   By: ftuernal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 14:52:44 by ftuernal          #+#    #+#             */
-/*   Updated: 2023/05/02 18:57:49 by ftuernal         ###   ########.fr       */
+/*   Updated: 2023/05/03 13:16:11 by ftuernal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	**create_path(char **envp)
 
 	strdup_path = copy_path(envp);
 	split_path = ft_split(strdup_path, ':');
-	//free(copy_path);
 	comp_path = loop_joinf(split_path, "/");
+	free(strdup_path);
 	return (comp_path);
 }

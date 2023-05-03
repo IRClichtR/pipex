@@ -6,7 +6,7 @@
 /*   By: ftuernal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 15:47:22 by ftuernal          #+#    #+#             */
-/*   Updated: 2023/05/02 18:57:06 by ftuernal         ###   ########.fr       */
+/*   Updated: 2023/05/03 15:19:33 by ftuernal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,12 @@ char	*find_path(char *cmd, char **envp)
 		individual_path = ft_strjoin(paths[i], cmd);
 		if (access(individual_path, F_OK) == 0)
 		{
-			dump_del(dump);	
+			dump_del(dump);
 			return (individual_path);
 		}
-		free(individual_path);
+		dump_add(individual_path, dump);
 		i++;
 	}
+	dump_del(dump);
 	return (0);
 }
