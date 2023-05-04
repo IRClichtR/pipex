@@ -6,7 +6,7 @@
 /*   By: ftuernal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 14:31:08 by ftuernal          #+#    #+#             */
-/*   Updated: 2023/05/03 15:42:29 by ftuernal         ###   ########.fr       */
+/*   Updated: 2023/05/04 12:32:41 by ftuernal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,16 @@ static void	add_ptstr_to_dump(char **str, t_list *dump)
 	dump_add(str[i], dump);
 }
 
+static void	error_execute(t_list *garbage)
+{
+	ft_putstr_fd("In execute() function: ", 2);
+	ft_putstr_fd("command not found\n", 2);
+	dump_del(garbage);
+}
+
 void	execute(char *arg, char **envp)
 {
 	char	**cmd;
-	int		exec;
 	char	*path;
 	t_list	*garbage;
 
@@ -38,14 +44,13 @@ void	execute(char *arg, char **envp)
 	path = find_path(cmd[0], envp);
 	dump_add(path, garbage);
 	add_ptstr_to_dump(cmd, garbage);
-	if (access(cmd[0], F_OK) == -1)
+	if (path == NULL)
 	{
-		dump_del(garbage);
-		perror("Error: Command not found");
-		exit(errno);
+		error_execute(garbage);
+		exit(127);
 	}
-	exec = execve(path, cmd, envp);
-	if (exec == -1)
-		perror("Execve error: ");
-	exit(errno);
+	execve(path, cmd, envp);
+	perror("Execve error: ");
+	dump_del(garbage);
+	exit(1);
 }

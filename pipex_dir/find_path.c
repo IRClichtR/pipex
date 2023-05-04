@@ -6,7 +6,7 @@
 /*   By: ftuernal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 15:47:22 by ftuernal          #+#    #+#             */
-/*   Updated: 2023/05/03 15:19:33 by ftuernal         ###   ########.fr       */
+/*   Updated: 2023/05/04 12:28:21 by ftuernal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*find_path(char *cmd, char **envp)
 	while (paths[i] != 0)
 	{
 		individual_path = ft_strjoin(paths[i], cmd);
-		if (access(individual_path, F_OK) == 0)
+		if (access(individual_path, X_OK) == 0)
 		{
 			dump_del(dump);
 			return (individual_path);
