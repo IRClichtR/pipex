@@ -6,7 +6,7 @@
 /*   By: ftuernal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 14:26:23 by ftuernal          #+#    #+#             */
-/*   Updated: 2023/05/04 12:03:57 by ftuernal         ###   ########.fr       */
+/*   Updated: 2023/06/22 13:07:18 by ftuernal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	do_child(char **argv, char **envp, int *fd)
 	duped_infile = dup2(infile, STDIN_FILENO);
 	close(fd[0]);
 	close(infile);
-	execute(argv[2], envp);
-	close(duped_fdout);
-	close(duped_infile);
+	if (argv[2][0] != 0)
+		execute(argv[2], envp);
 }

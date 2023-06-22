@@ -6,7 +6,7 @@
 /*   By: ftuernal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 14:31:08 by ftuernal          #+#    #+#             */
-/*   Updated: 2023/05/04 12:32:41 by ftuernal         ###   ########.fr       */
+/*   Updated: 2023/06/21 19:12:30 by ftuernal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,18 @@ void	execute(char *arg, char **envp)
 	char	*path;
 	t_list	*garbage;
 
-	garbage = ft_calloc(1, sizeof(t_list));
 	cmd = ft_split(arg, ' ');
+	if (!cmd)
+		return ;
+	garbage = ft_calloc(1, sizeof(t_list));
 	path = find_path(cmd[0], envp);
-	dump_add(path, garbage);
-	add_ptstr_to_dump(cmd, garbage);
 	if (path == NULL)
 	{
 		error_execute(garbage);
 		exit(127);
 	}
+	dump_add(path, garbage);
+	add_ptstr_to_dump(cmd, garbage);
 	execve(path, cmd, envp);
 	perror("Execve error: ");
 	dump_del(garbage);

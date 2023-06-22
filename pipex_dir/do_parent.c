@@ -6,7 +6,7 @@
 /*   By: ftuernal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 14:29:44 by ftuernal          #+#    #+#             */
-/*   Updated: 2023/05/03 14:55:26 by ftuernal         ###   ########.fr       */
+/*   Updated: 2023/06/22 13:08:28 by ftuernal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ void	do_parent(char **argv, char **envp, int *fd)
 	duped_outfile = dup2(outfile, STDOUT_FILENO);
 	close(fd[1]);
 	close(outfile);
-	execute(argv[3], envp);
-	close(duped_fdin);
-	close(duped_outfile);
+	if (argv[3][0] != 0)
+		execute(argv[3], envp);
+	else
+		ft_putstr_fd("permission denied\n", 2);
 }
