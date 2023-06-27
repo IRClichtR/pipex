@@ -6,7 +6,7 @@
 /*   By: ftuernal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 16:34:28 by ftuernal          #+#    #+#             */
-/*   Updated: 2023/06/26 18:33:59 by ftuernal         ###   ########.fr       */
+/*   Updated: 2023/06/27 16:20:31 by ftuernal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,16 @@
 
 static int	open_control(char *filename, int std)
 {
-dprintf(2, "std = %d, filename = %s\n", std, filename);
 	if (std == 0 && access(filename, W_OK)!= 0)
 		return (-1);
-//dprintf(2, "std = %d, filename = %s\n", std, filename);
 	else if (std == 2 && access(filename, R_OK)!= 0)
 		return (-1);
 	if (std == 1 && access(filename, W_OK)!= 0)
 	{
 		if (filename[0] == '\0')
-			return (-1);
-		else
 			return (2);
+		else
+			return (-1);
 	}
 	return (1);
 }
@@ -43,10 +41,11 @@ int	open_file(char *filename, int std)
 	file = 0;
 	if (open_control(filename, std) == -1)
 	{
-		dprintf(2, "file %s open control %d\n", filename, open_control(filename, std));
 		print_permerror();
 		return (-2);
 	}
+	if (std == 1)
+		printf("OPEN_CONTROL WHEN std == 1 = %d\n", open_control(filename, std));
 	if (std == 0)
 		file = open(filename, O_WRONLY | O_CREAT | O_APPEND | O_CLOEXEC, 0777);
 	else if (std == 1 && open_control(filename, std) == 2)
