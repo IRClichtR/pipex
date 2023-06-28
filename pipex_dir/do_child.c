@@ -32,4 +32,6 @@ void	do_child(char **argv, char **envp, int *fd)
 	close(infile);
 	if (argv[2][0] != 0)
 		execute(argv[2], envp);
+	close(duped_infile);
+	close(duped_fdout);
 }

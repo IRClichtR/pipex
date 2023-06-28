@@ -34,6 +34,4 @@ void	do_parent(char **argv, char **envp, int *fd)
 		execute(argv[3], envp);
 	else
 		ft_putstr_fd("Error: permission denied\n", 2);
-	close(duped_outfile);
-	close(duped_fdin);
 }

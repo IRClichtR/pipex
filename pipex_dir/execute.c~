@@ -45,7 +45,7 @@ void	execute(char *arg, char **envp)
 	if (!cmd)
 		return ;
 	add_ptstr_to_dump(cmd, garbage);
-	if (ft_strchr(cmd[0], '/') != 0)
+	if (ft_strchr(cmd, '/') != 0)
 		execve(cmd[0], cmd + 1, NULL);
 	else
 	{
