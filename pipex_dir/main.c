@@ -33,12 +33,10 @@ static void	pipe_error(void)
 
 static void	do_postprocess(int *fd, int pid2, int pid1)
 {
-//	wait(NULL);
-	waitpid(pid1, NULL, WUNTRACED);
-	waitpid(pid2, NULL, WUNTRACED);
-	waitpid(-1, NULL, 0);
 	close(fd[0]);
 	close(fd[1]);
+	waitpid(pid1, NULL, WUNTRACED);
+	waitpid(pid2, NULL, WUNTRACED);
 }
 
 int	main(int ac, char **av, char **envp)
@@ -47,7 +45,9 @@ int	main(int ac, char **av, char **envp)
 	int	pid1;
 	int	pid2;
 
-	if (envp[0] == NULL)
+	if (envp[0] == NULL 
+			&& (ft_strchr(av[2], '/') == 0
+			|| ft_strchr(av[3], '/') == 0))
 		envp_error();
 	if (ac == 5)
 	{
